@@ -1,0 +1,12 @@
+{
+  "name": "ФЛЕКС РЕНТ — Аренда спецтехники",
+  "short_name": "ФЛЕКС РЕНТ",
+  "description": "Аренда спецтехники и оборудования в Республике Коми и НАО",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#f06a00",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

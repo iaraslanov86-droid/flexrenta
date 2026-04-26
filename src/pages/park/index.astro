@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import company from '../../data/company.json';
+import equipment from '../../data/equipment.json';
+
+const iconMap: Record<string, string> = {
+  crane: `<path d="M12 2v6m0 0l-4 4m4-4l4 4M4 22h16M8 22V12H4l8-10 8 10h-4v10"/>`,
+  excavator: `<path d="M2 20h20M6 20V10l4-6h4l4 6v10M10 20v-5h4v5"/>`,
+  kmu: `<path d="M1 12h4l2-8h10l2 8h4M5 12v8h14v-8M9 20v-4h6v4"/>`,
+  bus: `<rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8zM5.5 21a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM18.5 21a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>`,
+  car: `<path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="9" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>`,
+  generator: `<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>`,
+  home: `<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>`,
+  special: `<path d="M12 22V12M12 12L4 7.5M12 12l8-4.5M4 7.5V17L12 22M20 7.5V17L12 22M4 7.5L12 3l8 4.5"/>`,
+};
+---
+<BaseLayout
+  title="Парк техники ФЛЕКС РЕНТ — Аренда спецтехники в Коми и НАО"
+  description="Полный парк техники в аренду: автокраны, экскаваторы, КМУ, вахтовки, генераторы, вагон-дома. Усинск, Республика Коми, НАО. ИП Арасланов."
+  keywords="парк техники аренда Усинск, автокран аренда Коми, экскаватор аренда, вагон-дом аренда, генератор дизельный аренда НАО"
+  canonical={`${company.site}/park/`}
+  geo={company.geo}
+/>
+
+<main>
+  <nav class="crumbs" aria-label="Навигация">
+    <a href="/">Главная</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <span aria-current="page">Парк техники</span>
+  </nav>
+
+  <div class="park-hero">
+    <p class="section-label">ФЛЕКС РЕНТ</p>
+    <h1>Парк техники и оборудования</h1>
+    <p>35+ единиц собственной техники. Аренда для нефтегазовых объектов Республики Коми и НАО. Операторы с допусками на объекты.</p>
+  </div>
+
+  <!-- STATUS LEGEND -->
+  <div style="padding:12px 16px;display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--text-dim)">
+    <span style="display:flex;align-items:center;gap:6px">
+      <span style="width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.5);flex:0 0 10px"></span>
+      Доступна к аренде
+    </span>
+    <span style="display:flex;align-items:center;gap:6px">
+      <span style="width:10px;height:10px;border-radius:50%;background:#f59e0b;box-shadow:0 0 8px rgba(245,158,11,.4);flex:0 0 10px"></span>
+      На техобслуживании
+    </span>
+  </div>
+
+  {equipment.categories.map(cat => (
+    <section class="park-section" id={cat.slug}>
+      <h2>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={iconMap[cat.icon] ?? iconMap.special} />
+        {cat.name}
+      </h2>
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:16px;line-height:1.55">{cat.description}</p>
+      <div class="units">
+        {cat.units.map(unit => (
+          <div class="unit">
+            <span class={`unit-dot ${unit.status}`}></span>
+            <div>
+              <h4>{unit.name}</h4>
+              <p>{unit.specs}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <!-- VAGONY special section -->
+  <section class="park-section" id="vagony" style="background:linear-gradient(180deg,rgba(240,106,0,.04),transparent);border-top:1px solid var(--border)">
+    <h2>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Вагон-дома, офисы и бани
+    </h2>
+    <p style="font-size:14px;color:var(--text-dim);margin-bottom:16px;line-height:1.55">
+      Мобильные модули для обустройства вахтовых посёлков. Утеплены под условия Крайнего Севера. Аренда от 1 месяца с доставкой на объект.
+    </p>
+    <div class="units">
+      <div class="unit">
+        <span class="unit-dot available"></span>
+        <div>
+          <h4>Вагон-дом жилой (6–8 мест)</h4>
+          <p>Северное утепление · Электроотопление · Спальные места · Освещение</p>
+        </div>
+      </div>
+      <div class="unit">
+        <span class="unit-dot available"></span>
+        <div>
+          <h4>Вагон-офис</h4>
+          <p>Рабочие столы · Отопление · Освещение · Для ИТР и руководства</p>
+        </div>
+      </div>
+      <div class="unit">
+        <span class="unit-dot available"></span>
+        <div>
+          <h4>Вагон-баня</h4>
+          <p>Парная + помывочная + предбанник · Дровяная печь · Для вахтового персонала</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding:28px 16px 40px">
+    <div class="contact-card">
+      <h3>Нужна техника? Звоните!</h3>
+      <p style="font-size:14px;color:var(--text-dim);margin-bottom:18px;line-height:1.55">
+        Подберём технику под задачу, согласуем условия и подадим на объект в кратчайшие сроки.
+      </p>
+      <div style="display:grid;gap:10px">
+        <a href={`tel:${company.phoneTel}`} class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+          {company.phoneDisplay}
+        </a>
+        <a href={`https://wa.me/${company.whatsapp}?text=Добрый день! Интересует аренда техники.`} class="btn btn-secondary" rel="nofollow">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.6-1.5-.9-2.1-.2-.5-.5-.4-.7-.5-.2 0-.4 0-.6 0-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.7 0 1.6 1.1 3.1 1.3 3.3.2.2 2.3 3.5 5.5 4.8.8.3 1.4.5 1.8.6.8.3 1.5.2 2 .1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-10 10c0 1.8.5 3.5 1.3 5L2 22l5.1-1.3c1.4.8 3.1 1.3 4.9 1.3a10 10 0 0 0 0-20z"/></svg>
+          Написать в WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</main>

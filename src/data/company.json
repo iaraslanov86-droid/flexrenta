@@ -1,0 +1,47 @@
+{
+  "name": "ФЛЕКС РЕНТ",
+  "fullName": "Аренда спецтехники и оборудования",
+  "legalName": "ИП Арасланов Илья Самбирович",
+  "legalNameFull": "ИНДИВИДУАЛЬНЫЙ ПРЕДПРИНИМАТЕЛЬ АРАСЛАНОВ ИЛЬЯ САМБИРОВИЧ",
+  "site": "https://flexrenta.ru",
+  "phone": "79121595777",
+  "phoneDisplay": "8 (912) 159-57-77",
+  "phoneTel": "+79121595777",
+  "whatsapp": "79121595777",
+  "email": "araslanov@flexrenta.ru",
+  "inn": "432904877222",
+  "ogrnip": "320112100007387",
+  "founded": "2015",
+  "bank": {
+    "name": "ПАО Сбербанк",
+    "bik": "044525225",
+    "rs": "40802810040070016907",
+    "ks": "30101810400000000225"
+  },
+  "legalAddress": {
+    "postalCode": "169710",
+    "addressRegion": "Республика Коми",
+    "addressLocality": "г. Усинск",
+    "streetAddress": "ул. Парковая, 15"
+  },
+  "workAddress": {
+    "postalCode": "169710",
+    "addressRegion": "Республика Коми",
+    "addressLocality": "г. Усинск",
+    "streetAddress": "ул. Парковая, 15"
+  },
+  "geo": {
+    "lat": 65.9989,
+    "lon": 57.5296,
+    "region": "RU-KO",
+    "placename": "Усинск"
+  },
+  "rating": {
+    "value": "4.9",
+    "count": "47"
+  },
+  "verification": {
+    "yandex": "",
+    "google": ""
+  }
+}

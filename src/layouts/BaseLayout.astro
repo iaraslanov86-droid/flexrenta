@@ -1,0 +1,181 @@
+---
+import '../styles/global.css';
+import company from '../data/company.json';
+
+export interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  canonical: string;
+  ogImage?: string;
+  ogType?: string;
+  noindex?: boolean;
+  geo?: { region?: string; placename?: string; lat?: number; lon?: number };
+  jsonLd?: unknown;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  canonical,
+  ogImage = `${company.site}/og/default.jpg`,
+  ogType = 'website',
+  noindex = false,
+  geo,
+  jsonLd,
+} = Astro.props;
+
+const robotsContent = noindex
+  ? 'noindex,nofollow'
+  : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+---
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="format-detection" content="telephone=yes" />
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {keywords && <meta name="keywords" content={keywords} />}
+  <meta name="robots" content={robotsContent} />
+  <meta name="author" content={company.legalName} />
+
+  {company.verification?.yandex && <meta name="yandex-verification" content={company.verification.yandex} />}
+  {company.verification?.google && <meta name="google-site-verification" content={company.verification.google} />}
+
+  {geo?.region && <meta name="geo.region" content={geo.region} />}
+  {geo?.placename && <meta name="geo.placename" content={geo.placename} />}
+  {geo?.lat && geo?.lon && <meta name="geo.position" content={`${geo.lat};${geo.lon}`} />}
+  {geo?.lat && geo?.lon && <meta name="ICBM" content={`${geo.lat}, ${geo.lon}`} />}
+
+  <link rel="canonical" href={canonical} />
+  <link rel="alternate" hreflang="ru" href={canonical} />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="msapplication-TileColor" content="#f06a00" />
+
+  <meta property="og:type" content={ogType} />
+  <meta property="og:locale" content="ru_RU" />
+  <meta property="og:site_name" content={company.name} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-info" aria-hidden="true">
+      <div class="topbar-info-inner">
+        <span class="info-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Работаем круглосуточно
+        </span>
+        <span class="info-sep" aria-hidden="true">•</span>
+        <span class="info-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Усинск · Республика Коми · НАО
+        </span>
+        <span class="info-sep" aria-hidden="true">•</span>
+        <span class="info-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          35+ единиц техники и оборудования
+        </span>
+        <span class="info-sep info-sep-far" aria-hidden="true">•</span>
+        <span class="info-item info-item-end">с {company.founded} года</span>
+      </div>
+    </div>
+
+    <div class="topbar-main">
+      <div class="topbar-inner">
+        <a href="/" class="logo" aria-label="ФЛЕКС РЕНТ — главная">
+          <span class="logo-text">
+            <span class="logo-name">АРАСЛАНОВ</span>
+            <span class="logo-badge">ФЛЕКС РЕНТ</span>
+          </span>
+        </a>
+
+        <nav class="topbar-nav" aria-label="Основная навигация">
+          <a href="/park/" class="topbar-link">Парк техники</a>
+          <a href="/park/#vagony" class="topbar-link">Вагон-дома</a>
+          <a href="/about/" class="topbar-link">О компании</a>
+        </nav>
+
+        <div class="topbar-right">
+          <a href={`mailto:${company.email}`} class="topbar-contact" aria-label={`Написать на ${company.email}`}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+            <span>{company.email}</span>
+          </a>
+          <a href={`tel:${company.phoneTel}`} class="topbar-cta" aria-label={`Позвонить ${company.phoneDisplay}`}>
+            <span class="cta-pulse" aria-hidden="true"><span class="cta-pulse-dot"></span></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+            <span class="cta-text">
+              <span class="cta-num">{company.phoneDisplay}</span>
+              <span class="cta-hint">Позвонить сейчас</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="topbar-line" aria-hidden="true"></div>
+  </header>
+
+  <slot />
+
+  <footer class="site-footer">
+    <p><strong>{company.legalNameFull}</strong> — аренда спецтехники, дизельных генераторов, вагон-домов и оборудования в Республике Коми и НАО.</p>
+    <p style="margin-top:8px">
+      {company.workAddress.postalCode}, {company.workAddress.addressRegion}, {company.workAddress.addressLocality}, {company.workAddress.streetAddress}
+    </p>
+    <p style="margin-top:10px">
+      <a href="/park/">Парк техники</a>
+      &nbsp;·&nbsp;
+      <a href="/about/">О компании</a>
+      &nbsp;·&nbsp; ИНН {company.inn}
+      &nbsp;·&nbsp; ОГРНИП {company.ogrnip}
+    </p>
+    <p style="margin-top:6px">
+      <a href={`tel:${company.phoneTel}`} style="color:var(--accent)">{company.phoneDisplay}</a>
+      &nbsp;·&nbsp;
+      <a href={`mailto:${company.email}`} style="color:var(--accent)">{company.email}</a>
+    </p>
+    <p style="margin-top:10px">© {new Date().getFullYear()} flexrenta.ru · Все права защищены</p>
+  </footer>
+
+  <div class="sticky-cta" role="region" aria-label="Быстрая связь">
+    <a href={`tel:${company.phoneTel}`} class="btn btn-primary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+      Позвонить
+    </a>
+    <a href={`https://wa.me/${company.whatsapp}`} class="btn btn-secondary" rel="nofollow">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4-.1-.5-.1-.1-.6-1.5-.9-2.1-.2-.5-.5-.4-.7-.5-.2 0-.4 0-.6 0-.2 0-.5.1-.8.4-.3.3-1.1 1.1-1.1 2.7 0 1.6 1.1 3.1 1.3 3.3.2.2 2.3 3.5 5.5 4.8.8.3 1.4.5 1.8.6.8.3 1.5.2 2 .1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-10 10c0 1.8.5 3.5 1.3 5L2 22l5.1-1.3c1.4.8 3.1 1.3 4.9 1.3a10 10 0 0 0 0-20z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+
+  <script is:inline>
+    document.querySelectorAll('.faq .qa').forEach(q => {
+      q.addEventListener('toggle', () => {
+        if (q.open) document.querySelectorAll('.faq .qa[open]').forEach(o => { if (o !== q) o.open = false; });
+      });
+    });
+  </script>
+</body>
+</html>

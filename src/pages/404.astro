@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import company from '../data/company.json';
+---
+<BaseLayout
+  title="Страница не найдена — ФЛЕКС РЕНТ"
+  description="Страница не найдена. Аренда спецтехники в Республике Коми и НАО — ФЛЕКС РЕНТ, ИП Арасланов."
+  canonical={`${company.site}/404/`}
+  noindex={true}
+/>
+
+<main style="min-height:60vh;display:flex;align-items:center;justify-content:center;padding:40px 16px;text-align:center">
+  <div>
+    <div style="font-size:72px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:16px">404</div>
+    <h1 style="font-size:22px;margin-bottom:10px">Страница не найдена</h1>
+    <p style="font-size:15px;color:var(--text-dim);margin-bottom:28px">Возможно, она была удалена или адрес указан неверно.</p>
+    <div style="display:grid;gap:10px;max-width:320px;margin:0 auto">
+      <a href="/" class="btn btn-primary">На главную</a>
+      <a href="/park/" class="btn btn-secondary">Парк техники</a>
+    </div>
+  </div>
+</main>
